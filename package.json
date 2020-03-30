@@ -1,0 +1,35 @@
+{
+  "name": "list",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@softbind/react-hooks": "^0.0.3",
+    "lodash-move": "^1.1.1",
+    "modern-normalize": "^0.6.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-scripts": "^3.4.1",
+    "react-spring": "9.0.0-beta.33",
+    "react-use": "^13.12.2",
+    "react-use-gesture": "^7.0.0-beta.9",
+    "styled-components": "^5.0.1"
+  },
+  "scripts": {
+    "storybook": "cross-env echo 'ensure we got the module attr in package.json' && start-storybook -p 9009 -c .storybook --ci"
+  },
+  "devDependencies": {
+    "@storybook/addon-knobs": "^5.3.17",
+    "@storybook/react": "^5.3.17",
+    "cross-env": "^7.0.2"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
