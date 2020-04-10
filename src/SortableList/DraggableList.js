@@ -96,27 +96,19 @@ export default ({ items, Renderer, moveItem }) => {
     i++;
   }
 
-  let h = 0;
-  let currentItemId = 0;
-  let diff = 0;
+  let currentItemHeight = 0; // item height
+  let currentItemId = 0; // current dragged item id
+  let diff = 0; // distance in px from top of current dragged item to y
 
   const bind = useGesture({
-    onDrag: ({
-      args: [id],
-      down,
-      movement: [, movedY],
-      xy: [, y],
-      event,
-      distance,
-      memo = false,
-    }) => {
+    onDrag: ({ args: [id], down, xy: [, y], event, distance, memo }) => {
       if (down) {
         if (distance < 1) return;
 
         if (!currentItemId) {
           currentItemId = id;
           const props = event.target.getBoundingClientRect();
-          h = props.height;
+          currentItemHeight = props.height;
           diff = y - props.top;
           setIsGrabbing(true);
         }
@@ -127,7 +119,6 @@ export default ({ items, Renderer, moveItem }) => {
         const prevPlaceIndex = placeIndex[currentItemId] - 1;
 
         for (let itemId in placeData) {
-          //  if (+itemId === currentItemId) continue;
           if (
             placeIndex[itemId] === prevPlaceIndex &&
             prevPlaceIndex !== indexBeforeLastSeparator
@@ -154,7 +145,7 @@ export default ({ items, Renderer, moveItem }) => {
 
         setPlaceProps((i) => {
           return {
-            height: i === placeIndex[nearestItemId] ? h : 0,
+            height: i === placeIndex[nearestItemId] ? currentItemHeight : 0,
             immediate: i === placeIndex[currentItemId] && !memo.wasStart,
           };
         });
@@ -162,8 +153,9 @@ export default ({ items, Renderer, moveItem }) => {
         return { wasStart: true, nearestItemId };
       } else {
         setIsGrabbing(false);
+
         setPlaceProps((i) => ({
-          height: i === placeIndex[memo.nearestItemId] ? h : 0,
+          height: i === placeIndex[memo.nearestItemId] ? currentItemHeight : 0,
           immediate: true,
         }));
 
@@ -175,7 +167,7 @@ export default ({ items, Renderer, moveItem }) => {
               top:
                 placeData[memo.nearestItemId].top -
                 (placeIndex[currentItemId] <= placeIndex[memo.nearestItemId]
-                  ? h
+                  ? currentItemHeight
                   : 0),
             };
         });
