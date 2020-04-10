@@ -19,7 +19,8 @@ const ItemDiv = styled.div`
   height: ${props => (props.id + 1) * 15}px;
   border-radius: 5px;
   color: white;
-  /* line-height: 90px; */
+  display: flex;
+  align-items: center;
   padding-left: 32px;
   font-size: 14.5px;
   text-transform: uppercase;

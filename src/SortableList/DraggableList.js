@@ -155,9 +155,14 @@ export default ({ items, Renderer, moveItem }) => {
                 (placeIndex[currentItemId] <= placeIndex[memo.nearestItemId]
                   ? currentItemHeight
                   : 0),
+               onRest: () => { 
+
+                //moveItem(currentItemId, itemIndex[memo.nearestItemId] + 1)
+               }   
             };
         });
-
+        
+        
         return false;
       }
     },
