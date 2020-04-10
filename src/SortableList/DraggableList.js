@@ -34,9 +34,6 @@ export default ({ items, Renderer, moveItem }) => {
         const itemId = elements[i].getAttribute("data-id");
         placeDataTmp[itemId] = {
           top: elements[i].getBoundingClientRect().top,
-          bottom:
-            elements[i].getBoundingClientRect().top +
-            elements[i].getBoundingClientRect().height,
         };
       }
       setPlaceData(placeDataTmp);
@@ -68,9 +65,7 @@ export default ({ items, Renderer, moveItem }) => {
   );
   const stylesPlace = {};
   for (let itemId in placeIndex) {
-    stylesPlace[itemId] = {
-      ...placeProps[placeIndex[itemId]],
-    };
+    stylesPlace[itemId] = placeProps[placeIndex[itemId]];
   }
 
   // animated props from ITEMS
