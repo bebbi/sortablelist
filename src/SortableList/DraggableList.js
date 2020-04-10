@@ -47,11 +47,10 @@ export default ({ items, Renderer, moveItem }) => {
   // for every item we create place that we render after it, where it is possible to drop element
   //  besides items after Separatator firstUnsortable:true
   const placeIndex = {};
-  let indexBeforeLastSeparator = 0;
+
   let index = 0;
   for (let item of items) {
     if (item.firstUnsortable) {
-      indexBeforeLastSeparator = index - 1;
       break;
     }
     placeIndex[item.id] = index;
@@ -116,17 +115,10 @@ export default ({ items, Renderer, moveItem }) => {
         let shortDistance = null;
         let nearestItemId = null;
 
-        const prevPlaceIndex = placeIndex[currentItemId] - 1;
         for (let itemId in placeData) {
-          if (
-            placeIndex[itemId] === prevPlaceIndex &&
-            prevPlaceIndex !== indexBeforeLastSeparator
-          )
-            continue;
+          if (itemId === nearestItemId) continue;
           const data = placeData[itemId];
-
-          let distance = Math.abs(data.top - y);
-
+          let distance = Math.abs(data.top - (y - diff));
           if (distance < shortDistance || shortDistance === null) {
             shortDistance = distance;
             nearestItemId = +itemId;
@@ -146,7 +138,7 @@ export default ({ items, Renderer, moveItem }) => {
         setPlaceProps((i) => {
           return {
             height: i === placeIndex[nearestItemId] ? currentItemHeight : 0,
-            immediate: i === placeIndex[currentItemId] && !memo.wasStart,
+            immediate: i === placeIndex[nearestItemId] ? !memo.wasStart : false,
           };
         });
 
