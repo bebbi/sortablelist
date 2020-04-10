@@ -9,16 +9,17 @@ const data = [
   { name: 'james.brown', id: 3 },
   { name: 'raumgleiter', id: 4 },
   { label: 'Separator', firstUnsortable: true, id: 5, isStatic: true },
-  { name: 'martha.argerich', id: 6 }
+  { name: 'martha.argerich', id: 6 },
+  { name: 'last.name', id: 7 },
+
 ]
 
 const ItemDiv = styled.div`
   width: 320px;
-  height: 100px;
-  overflow: visible;
+  height: ${props => (props.id + 1) * 15}px;
   border-radius: 5px;
   color: white;
-  line-height: 90px;
+  /* line-height: 90px; */
   padding-left: 32px;
   font-size: 14.5px;
   text-transform: uppercase;
@@ -34,7 +35,7 @@ const SeparatorDiv = styled(ItemDiv)`
 
 const ItemRenderer = ({ item }) => {
   const Wrapper = item.label === 'Separator' ? SeparatorDiv : ItemDiv
-  return <Wrapper>{item.name || item.label}</Wrapper>
+  return <Wrapper id={item.id}>{item.name || item.label}</Wrapper>
 }
 
 export default () => {

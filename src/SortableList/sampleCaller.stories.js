@@ -32,11 +32,11 @@ const Renderer = ({ item }) => {
     </div>
   )
 }
-
+/*
 stories.add('DraggableList', () => {
   return <DraggableList items={items} heights={heights} Renderer={Renderer} />
 })
-
+*/
 
 stories.add('SampleCaller', () => {
   return (
