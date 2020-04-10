@@ -96,12 +96,12 @@ export default ({ items, Renderer, moveItem }) => {
     i++;
   }
 
-  let currentItemHeight = 0; // item height
-  let currentItemId = 0; // current dragged item id
-  let diff = 0; // distance in px from top of current dragged item to y
+  let currentItemHeight = 0;
+  let currentItemId = 0;
+  let diff = 0;
 
   const bind = useGesture({
-    onDrag: ({ args: [id], down, xy: [, y], event, distance, memo }) => {
+    onDrag: ({ args: [id], down, xy: [, y], event, distance, memo = {} }) => {
       if (down) {
         if (distance < 1) return;
 
@@ -117,16 +117,16 @@ export default ({ items, Renderer, moveItem }) => {
         let nearestItemId = null;
 
         const prevPlaceIndex = placeIndex[currentItemId] - 1;
-
         for (let itemId in placeData) {
           if (
             placeIndex[itemId] === prevPlaceIndex &&
             prevPlaceIndex !== indexBeforeLastSeparator
           )
             continue;
-
           const data = placeData[itemId];
+
           let distance = Math.abs(data.top - y);
+
           if (distance < shortDistance || shortDistance === null) {
             shortDistance = distance;
             nearestItemId = +itemId;
@@ -153,7 +153,6 @@ export default ({ items, Renderer, moveItem }) => {
         return { wasStart: true, nearestItemId };
       } else {
         setIsGrabbing(false);
-
         setPlaceProps((i) => ({
           height: i === placeIndex[memo.nearestItemId] ? currentItemHeight : 0,
           immediate: true,
