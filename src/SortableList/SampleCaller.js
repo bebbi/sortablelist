@@ -3,12 +3,12 @@ import SortableList from '.'
 import styled from 'styled-components'
 
 const data = [
-  { label: 'Separator', id: 0, isStatic: true },
+  { label: 'Super favorites', id: 0, isStatic: true },
   { name: 'steve.blank', id: 1 },
-  { label: 'Separator', id: 2, isStatic: true },
+  { label: 'Normal favorites', id: 2, isStatic: true },
   { name: 'james.brown', id: 3 },
   { name: 'raumgleiter', id: 4 },
-  { label: 'Separator', firstUnsortable: true, id: 5, isStatic: true },
+  { label: 'Unsortable', firstUnsortable: true, id: 5, isStatic: true },
   { name: 'martha.argerich', id: 6 },
   { name: 'last.name', id: 7 },
 
@@ -35,7 +35,7 @@ const SeparatorDiv = styled(ItemDiv)`
 `
 
 const ItemRenderer = ({ item }) => {
-  const Wrapper = item.label === 'Separator' ? SeparatorDiv : ItemDiv
+  const Wrapper = item.isStatic ? SeparatorDiv : ItemDiv
   return <Wrapper id={item.id}>{item.name || item.label}</Wrapper>
 }
 
